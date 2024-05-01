@@ -15,7 +15,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -44,33 +43,34 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests( req -> {
-                    req
-                            .requestMatchers(HttpMethod.POST,"api/v1/auth/register").permitAll()
-                            .requestMatchers(AllowedUrls.getAllowedUrls()).permitAll()
-                            .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                            .anyRequest().authenticated();
-                })
-                .csrf(AbstractHttpConfigurer::disable)
-                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-                .httpBasic(AbstractHttpConfigurer::disable)
-                .formLogin( form ->
-                        form
-                                .passwordParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY)
-                                .usernameParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_PASSWORD_KEY)
-                                .defaultSuccessUrl("http://localhost:4202/home")
-                                .loginPage("http://localhost:4202/login")
-                                .failureForwardUrl("http://localhost:4202/error")
-                                .permitAll()
-                )
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authenticationProvider(authenticationProvider())
-                .logout(logout ->
-                        logout
-                                .logoutUrl(AllowedUrls.getLogOutUrl())
-                                .addLogoutHandler(logoutHandler)
-                                .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext())
-                );
+            .authorizeHttpRequests( req -> {
+                req
+                    .requestMatchers(HttpMethod.POST,"/users/**").permitAll()
+                    .requestMatchers(AllowedUrls.getAllowedUrls()).permitAll()
+                    .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                    .anyRequest().authenticated();
+            })
+            .csrf(AbstractHttpConfigurer::disable)
+            .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+            .httpBasic(AbstractHttpConfigurer::disable)
+            .formLogin( form ->
+                form
+                    .passwordParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY)
+                    .usernameParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_PASSWORD_KEY)
+                    .defaultSuccessUrl("http://localhost:4202/home")
+                    .loginPage("http://localhost:4202/login")
+                    .failureForwardUrl("http://localhost:4202/error")
+                    .permitAll()
+            )
+//           .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .sessionManagement(AbstractHttpConfigurer::disable)
+            .authenticationProvider(authenticationProvider())
+            .logout(logout ->
+                    logout
+                            .logoutUrl(AllowedUrls.getLogOutUrl())
+                            .addLogoutHandler(logoutHandler)
+                            .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext())
+            );
 
         return http.build();
     }
