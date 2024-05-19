@@ -1,4 +1,5 @@
 export const environment = {
+  authenticationService: 'spring',
   firebaseConfig : {
     apiKey: "AIzaSyBV73gqpTYDtmqyuXceEFW2z8DEch2QSqg",
     authDomain: "softuni-angular-project-c8664.firebaseapp.com",
