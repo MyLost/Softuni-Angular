@@ -1,7 +1,37 @@
-<div id="page-top">
-    <div class="masthead d-flex align-items-center">
-     <div class="container px-4 px-lg-5 text-center">
-       <h3 class="mb-5"><em>Welcome</em></h3>
+<div class="my-auto">
+      <div class="text-center">
+        <h1 class="font-normal">Welcome</h1>
+        <p class="font-normal"> Application developed for Softuni course Java(Spring). <br />
+          This app manage your awesome project and help you to share them with rest of the world!
+        </p> <br />
+        <h1 class="font-normal">Try it now</h1>
+        <div>
+          <button routerLink="/login" class="mr-2" mat-flat-button color="primary">Login</button>
+          <button routerLink="/register" mat-flat-button color="warn">Register</button>
+        </div>
+     </div>
+
+  <div class="mt-8">
+    <div class="flex flex-wrap justify-content-around my-auto">
+      @for (project of lastFiveProjects; track project) {
+        <mat-card class="project-card">
+          <mat-card-header>
+            <div mat-card-avatar></div>
+            <mat-card-title>Name of popular project</mat-card-title>
+            <mat-card-subtitle>Username</mat-card-subtitle>
+          </mat-card-header>
+          <img mat-card-image src="" alt="Photo of pupular project">
+          <mat-card-content>
+            <p>
+             Project description
+            </p>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-button>LIKE</button>
+          </mat-card-actions>
+        </mat-card>
+      }
     </div>
-   </div>
+  </div>
 </div>
+
