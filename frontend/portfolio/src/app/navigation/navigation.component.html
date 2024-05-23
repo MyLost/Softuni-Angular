@@ -1,48 +1,19 @@
 <mat-toolbar color="primary">
-  <h1>PORTFOLIO</h1>
+  <a mat-button routerLink="/home"><h1>PORTFOLIO APP</h1></a>
+  <div class="spacer"></div>
+  <a mat-button routerLink="/home">Home</a>
+
+  @if(!authenticated) {
+    <a mat-button routerLink="/login">Login</a>
+    <a mat-button routerLink="/register">Register</a>
+  }
+
+  @if(authenticated) {
+    <a mat-button routerLink="/projects">Projects</a>
+    <a mat-button routerLink="/about-me">About me</a>
+    <a mat-button routerLink="/contact-me">Contact me</a>
+    <a mat-button routerLink="/logout">Logout</a>
+  }
 </mat-toolbar>
 
 
-
-<!--<nav class="navbar navbar-expand-lg navbar-light bg-light">-->
-<!--  <a class="navbar-brand" href="home"><span style="color: var(&#45;&#45;bs-yellow)">{{title}} |</span></a>-->
-<!--  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">-->
-<!--    <span class="navbar-toggler-icon"></span>-->
-<!--  </button>-->
-<!--  <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarNav">-->
-<!--    <ul class="navbar-nav">-->
-<!--      <li class="nav-item active pt-1">-->
-<!--        <a style="color: white" class="nav-link" href="home">Home</a>-->
-<!--      </li>-->
-<!--      @if(!authenticated) {-->
-<!--        <li class="nav-item pt-1">-->
-<!--          <a  style="color: white" class="nav-link" href="login">Login</a>-->
-<!--        </li>-->
-<!--      }-->
-<!--      @if(!authenticated) {-->
-<!--        <li class="nav-item pt-1">-->
-<!--          <a  style="color: white" class="nav-link" href="register">Register</a>-->
-<!--        </li>-->
-<!--      }-->
-<!--      @if(authenticated) {-->
-<!--        <li class="nav-item pt-1">-->
-<!--          <a  style="color: white" class="nav-link" href="projects">Projects</a>-->
-<!--        </li>-->
-<!--        <li class="nav-item pt-1">-->
-<!--          <a  style="color: white" class="nav-link" href="about-me">About me</a>-->
-<!--        </li>-->
-<!--        <li class="nav-item pt-1">-->
-<!--          <a  style="color: white" class="nav-link" href="contact-me">Contact me</a>-->
-<!--        </li>-->
-<!--        <li class="nav-item pt-1">-->
-<!--          <a  style="color: white" class="nav-link" href="logout">Logout</a>-->
-<!--        </li>-->
-<!--      }-->
-<!--    </ul>-->
-<!--    @if(authenticated) {-->
-<!--      <div>-->
-<!--        <span style="color: white; margin-right: 30px"> Welcome {{ user.firstName }} </span>-->
-<!--      </div>-->
-<!--    }-->
-<!--  </div>-->
-<!--</nav>-->
