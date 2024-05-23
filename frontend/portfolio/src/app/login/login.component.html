@@ -17,42 +17,48 @@
         <div class="col-lg-4">
           <h2 class="fw-bold mb-5">Sign up now</h2>
           <form #ngForm="ngForm">
-            <!-- 2 column grid layout with text inputs for the first and last names -->
-            <div class="row">
-              <div class="col-md-6">
-                <div class="form-outline">
-                  <input type="text" id="form3Example1" class="form-control" [(ngModel)]="user.email" name="email" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" #email="ngModel"/>
-                  <label class="form-label" for="form3Example1"><span></span>Email</label>
-                </div>
-                @if(email.errors?.['pattern'] && (email.dirty || email.touched)) {
-                  <span style="color: red"> Email address is invalid </span>
-                }
-              </div>
-              <div class="col-md-6">
-                <div class="form-outline">
-                  <input type="password" id="form3Example2" class="form-control" [(ngModel)]="user.password" name="password" minlength="6" #password="ngModel"/>
-                  <label class="form-label" for="form3Example2">Password</label>
-                </div>
+            <div class="form-container">
+              <mat-form-field appearance="outline">
+                  <mat-label>Enter your email</mat-label>
+                  <input
+                    matInput
+                    class="form-control"
+                    [(ngModel)]="user.email"
+                    name="email"
+                    pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
+                    #email="ngModel"
+                  />
+                  @if(email.errors?.['pattern'] && (email.dirty || email.touched)) {
+                    <mat-error> Email address is invalid </mat-error>
+                  }
+                </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Enter your password</mat-label>
+                <input
+                  matInput
+                  [type]="hide ? 'password' : 'text'"
+                  [(ngModel)]="user.password"
+                  name="password"
+                  minlength="8"
+                  #password="ngModel"
+                />
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                  <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
                 @if(password.errors?.['minlength'] && (password.dirty || password.touched)) {
-                  <span style="color: red"> Password must be min 6 symbols </span>
+                  <mat-error> Password must be min 8 symbols </mat-error>
                 }
-              </div>
+              </mat-form-field>
+            </div>
               @if(loginFailed) {
                 <app-alert class="alert alert-danger p-0 m-0" message="email / password mismatch"></app-alert>
               }
-            </div>
             <!-- Checkbox -->
-            <div class="form-check d-flex justify-content-center mb-4 mt-4">
-              <input class="form-check-input me-2" type="checkbox" value="" id="form2Example33" checked />
-              <label class="form-check-label" for="form2Example33">
-                Subscribe to our newsletter
-              </label>
-            </div>
-
+              <mat-checkbox class="example-margin" >Subscribe to our newsletter</mat-checkbox>
+              <br />
             <!-- Submit button -->
-            <button class="btn btn-primary btn-block mb-4" (click)="login(ngForm)">
-              Sign in
-            </button>
+            <button mat-flat-button color="primary" (click)="login(ngForm)"> Sign in </button>
           </form>
         </div>
       </div>
