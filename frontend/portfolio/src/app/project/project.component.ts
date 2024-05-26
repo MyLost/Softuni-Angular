@@ -9,6 +9,9 @@ import {ImageUploadService} from "../common/image.service";
 import {Observable, of} from "rxjs";
 import {ToastService} from "../utils/toast-global/toast-service.service";
 import {ToastsContainer} from "../utils/toast-global/toasts-container.component";
+import { FirebaseAuthenticationService } from "../auth/firebase.authentication.service";
+import { MatCardModule } from '@angular/material/card';
+import { AuthenticationService } from "../auth/authentication.service";
 
 export interface Project {
   name: string;
@@ -30,7 +33,8 @@ export interface ProjectMetadata {
     AlertComponent,
     FormsModule,
     NgOptimizedImage,
-    ToastsContainer
+    ToastsContainer,
+    MatCardModule
   ],
   templateUrl: './project.component.html',
   styleUrl: './project.component.scss'
@@ -51,7 +55,11 @@ export class ProjectComponent implements OnInit {
   private toastService = inject(ToastService)
   private _currentUser: UserProfile;
 
-  constructor (private pSvc: ProjectService, private iuSvc: ImageUploadService) {
+  constructor (
+    protected authService: AuthenticationService,
+    private pSvc: ProjectService,
+    private iuSvc: ImageUploadService
+  ) {
     this._currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
   }
 
