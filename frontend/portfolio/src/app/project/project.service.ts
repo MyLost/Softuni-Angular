@@ -20,7 +20,7 @@ export class ProjectService extends AbstractService implements ICrudService<Proj
   getById(id: string): Observable<Project> {
         throw new Error('Method not implemented.');
     }
-  getByName(name: string): Observable<Project> {
+  getByName(name: string): Observable<Project> {  
       throw new Error('Method not implemented.');
   }
   getList(): Observable<Project[]> {
